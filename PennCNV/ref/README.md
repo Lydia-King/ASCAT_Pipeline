@@ -2,7 +2,7 @@ Store ref files here. Note that zipped files should be unzipped before use.
 
 Ref files for PennCNV Affy SNP6 pipeline are shown below.
 
-For Substep 1.1:
+**For Substep 1.1:**
 
 GenomeWideSNP_6.cdf
 
