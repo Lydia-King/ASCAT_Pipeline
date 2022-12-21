@@ -4,6 +4,7 @@ Ref files for PennCNV Affy SNP6 pipeline are shown below.
 
 For Substep 1.1:
 GenomeWideSNP_6.cdf
+
 GenomeWideSNP_6.birdseed.models
 GenomeWideSNP_6.specialSNPs
 listofCEL (create yourself - list of raw filenames that should match names of CEL files provided in data folder (example of structure provided))
