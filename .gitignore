@@ -7,7 +7,7 @@
 
 # Except for the these directories/files:
 # Ref folder
-!ref/*.gz
+!ref/*
 
 # Data folder 
 !data/README.md
