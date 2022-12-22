@@ -1,1 +1,1 @@
-Store raw CEL files in this directory.
+Store output from PennCNV in this directory.
