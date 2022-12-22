@@ -1,11 +1,14 @@
-# Ignore everything:
+# Ignore everything in main dir:
 /*
 
 # Except
 !.gitignore
 !README.md
+!ref/*
+!scripts/*
+!data/*
 
-# Except for the these directories/files:
+# Ignore these directories/files with exceptions:
 # Ref folder
 ref/*
 !ref/*.gz
@@ -13,6 +16,3 @@ ref/*
 # Data folder
 data/* 
 !data/README.md
-
-# Scripts folder
-!scripts/
