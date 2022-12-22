@@ -1,0 +1,16 @@
+# Ignore everything:
+/*
+
+# Except
+!.gitignore
+!README.md
+
+# Except for the these directories/files:
+# Ref folder
+!ref/*.gz
+
+# Data folder 
+!data/README.md
+
+# Scripts folder
+!scripts/
