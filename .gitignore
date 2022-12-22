@@ -4,9 +4,9 @@
 # Except
 !.gitignore
 !README.md
-!ref/*
-!scripts/*
-!data/*
+!ref/
+!scripts/
+!data/
 
 # Ignore these directories/files with exceptions:
 # Ref folder
