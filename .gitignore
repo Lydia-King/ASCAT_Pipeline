@@ -7,7 +7,7 @@
 
 # Except for the these directories/files:
 # Ref folder
-!ref/*
+!ref/GC_AffySNP6_102015.txt.gz
 
 # Data folder 
 !data/README.md
