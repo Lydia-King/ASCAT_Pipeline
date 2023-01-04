@@ -18,19 +18,29 @@ The ref directory contains the ref files needed to run the ASCAT pipeline for Af
 - RT_AffySNP6_102015.txt
 - SNPpos.txt
 
+**Note:** These files correspond to the GC correction file, replication timing correction file and SNP location file, respectively, for the Affymetrix SNP 6.0 platform. These files were built using Hg19, if you require GC correction file, replication timing correction file and SNP location file for other genome builds, such as Hg18 or Hg38, please use this [link](https://github.com/VanLoo-lab/ascat/tree/master/LogRcorrection) to create your own. 
+
 -----
 
 ### **Scripts**
-### **Scripts**
-The scripts directory contains the PennCNV_Script.sh script used to run the PennCNV-Affy pipeline for the Affymetrix SNP Array 6.0. The PennCNV-Affy pipeline contains 2 steps, however we are only interested in Step 1: Generate the signal intensity data based on raw CEL files. Step 1 has 4 substeps (substeps 1.1 - 1.4) and the script allows users to input arguments to run the 3-step or 4-step pipeline using Hg18, Hg19 or Hg38. When only a limited number of CEL files are available it is recommended to only use substeps 1.1, 1.2 and 1.4.  
+The scripts directory contains the R script ASCAT_Script.R and the submission script ASCAT_Submission.sh used to run the ASCAT pipeline. The ASCAT pipeline I am running is for microarray data without matched normals, see this [link](https://github.com/VanLoo-lab/ascat/tree/master/ExampleData) for examples of other ASCAT runs.  
 
-An example of how the script is run to preprocess the data using the 4-step procedure and Hg19 is: `sbatch PennCNV_Script.sh Hg19 4Step`  
+The scripts provided allow users to input a number of arguments, these are described below.
 
-**Important:** Accepted arguments for argument 1 include `Hg18`, `Hg19` or `Hg38` and accepted arguments for argument 2 include `3Step` or `4Step`. If anything else is inputted an error will be produced. 
+- Output directory name (optional). Flags are `-o` or `--out`. Default is "ASCAT_Output_Dir".
+- Input data (obtained from PennCNV-Affy pipeline). Flags are `-f` or `--file`.
+- SNP position file (optional). Note that SNPpos.txt file provided in ref folder is for Hg19. Flags are `-s` or `--snp`.
+- GC correction file. Flags are `-gc` or `--gccorrect`.
+- Replication timing correction file (optional). Flags are `-rt` or `--replicationtiming`.
+- Select which algorithm to use, aspcf or asmultipcf (optional). Flags are `-a` or `--algorithm`. Default is aspcf.
+- Penalty of introducing an additional ASPCF breakpoint (optional and expert parameter, don't adapt unless you know what you are doing). Flags are `-p` or `--penalty`. Default is 70.
 
- ASCAT_Script.R
+**Note:** All my samples come from female breast cancer patients ("XX") and so I do not need to load up the birdseed.report.txt file to extract the computed gender column to create sex vector. If your samples are from both sexes the R script provided will need to be altered. 
 
-ASCAT_Submission.sh 
+An example of how the script is run to preprocess the data using the 4-step procedure and Hg19 is: `sbatch ASCAT_Submission.sh ASCAT_Script.R `  
+
+**Note:** Consistent genome build should be used throughout whole PennCNV-Affy and ASCAT pipelines. 
+
 -----
 
 ### **To run this pipeline on your own data**
