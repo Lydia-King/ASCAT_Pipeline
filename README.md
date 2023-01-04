@@ -7,7 +7,7 @@ This repository contains scripts and ref files needed to run the Allele-Specific
 -----
 
 ### **Data**
-Store output from PennCNV-Affy in this directory. 
+Store output from the PennCNV-Affy pipeline in this directory. 
 
 -----
 
@@ -18,26 +18,28 @@ The ref directory contains the ref files needed to run the ASCAT pipeline for Af
 - RT_AffySNP6_102015.txt
 - SNPpos.txt
 
-**Note:** These files correspond to the GC correction file, replication timing correction file and SNP location file, respectively, for the Affymetrix SNP 6.0 platform. These files were built using Hg19, if you require GC correction file, replication timing correction file and SNP location file for other genome builds, such as Hg18 or Hg38, please use this [link](https://github.com/VanLoo-lab/ascat/tree/master/LogRcorrection) to create your own. 
+**Note:** These files correspond to the GC correction file, replication timing correction file and SNP location file, respectively, for the Affymetrix SNP 6.0 platform. These files were built using Hg19, if you require a GC correction file, replication timing correction file and SNP location file for other genome builds, such as Hg18 or Hg38, please use this [link](https://github.com/VanLoo-lab/ascat/tree/master/LogRcorrection) to create your own. 
 
 -----
 
 ### **Scripts**
-The scripts directory contains the R script ASCAT_Script.R and the submission script ASCAT_Submission.sh used to run the ASCAT pipeline. The ASCAT pipeline I am running is for microarray data without matched normals, see this [link](https://github.com/VanLoo-lab/ascat/tree/master/ExampleData) for examples of other ASCAT runs.  
+The scripts directory contains the R script (ASCAT_Script.R) and the submission script (ASCAT_Submission.sh) used to run the ASCAT pipeline. The ASCAT pipeline I am running is for microarray data without matched normals, see this [link](https://github.com/VanLoo-lab/ascat/tree/master/ExampleData) for examples of other ASCAT runs.  
 
 The scripts provided allow users to input a number of arguments, these are described below.
 
 - Output directory name (optional). Flags are `-o` or `--out`. Default is "ASCAT_Output_Dir".
-- Input data (obtained from PennCNV-Affy pipeline). Flags are `-f` or `--file`.
+- Input data **(needed)**. Flags are `-f` or `--file`.
 - SNP position file (optional). Note that SNPpos.txt file provided in ref folder is for Hg19. Flags are `-s` or `--snp`.
-- GC correction file. Flags are `-gc` or `--gccorrect`.
-- Replication timing correction file (optional). Flags are `-rt` or `--replicationtiming`.
+- GC correction file **(needed)**. Flags are `-g` or `--gccorrect`.
+- Replication timing correction file (optional). Flags are `-r` or `--replicationtiming`.
 - Select which algorithm to use, aspcf or asmultipcf (optional). Flags are `-a` or `--algorithm`. Default is aspcf.
 - Penalty of introducing an additional ASPCF breakpoint (optional and expert parameter, don't adapt unless you know what you are doing). Flags are `-p` or `--penalty`. Default is 70.
 
-**Note:** All my samples come from female breast cancer patients ("XX") and so I do not need to load up the birdseed.report.txt file to extract the computed gender column to create sex vector. If your samples are from both sexes the R script provided will need to be altered. 
+**Note:** All my samples come from female breast cancer patients ("XX"). As a result I do not need to load up the birdseed.report.txt file obtained from PennCNV-Affy pipeline to extract the computed gender column to create the sex vector. If your samples are from both sexes the R script provided will need to be altered. 
 
-An example of how the script is run to preprocess the data using the 4-step procedure and Hg19 is: `sbatch ASCAT_Submission.sh ASCAT_Script.R `  
+An example of how the script is run interactively is: `bash ASCAT_Submission.sh ASCAT_Script.R `  
+
+A file called ASCAT_Run_Arguments.txt is produced containing a record of inputted arguments. 
 
 **Note:** Consistent genome build should be used throughout whole PennCNV-Affy and ASCAT pipelines. 
 
@@ -52,3 +54,28 @@ git clone https://github.com/Lydia-King/ASCAT_Pipeline
 cd ASCAT_Pipeline
 ```
 
+**2.** Set up data directory by downloading/moving output from PennCNV-Affy into it:
+
+```bash
+mv ../PennCNV_Output/* data/ 
+```
+
+**3.** Unzip files in ref folder:
+
+```bash
+cd ref/
+gunzip *.gz
+```
+
+**4.** Submit script with input arguments:
+
+```bash
+cd ../scripts
+
+# Basic run
+bash ASCAT_Submission.sh ASCAT_Script.R -f ../data/outfile.txt -g ../ref/GC_AffySNP6_102015.txt
+
+## OR ##
+
+sbatch ASCAT_Submission.sh ASCAT_Script.R -f ../data/outfile.txt -g ../ref/GC_AffySNP6_102015.txt
+```

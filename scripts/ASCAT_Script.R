@@ -3,11 +3,6 @@
 # Pipeline Adapted from - https://github.com/VanLoo-lab/ascat/blob/master/ExampleData/ASCAT_fromCELfiles.R
 
 # Set up arguments: 
-# argument 1 = Data obtained PennCNV-Affy pipeline
-# argument 2 = SNP position file
-# argument 3 = Name of output directory
-# argument 4 = Penalty for ASCAT run. Default is 70.
-
 library("optparse")
  
 option_list = list(
@@ -17,9 +12,9 @@ option_list = list(
               help="input data", metavar="character"),
   make_option(c("-s", "--snp"), type="character", default=NULL, 
               help="SNP position file name", metavar="character"),
-  make_option(c("-gc", "--gccorrect"), type="character", default=NULL, 
+  make_option(c("-g", "--gccorrect"), type="character", default=NULL, 
               help="input GC correction file", metavar="character"),
-  make_option(c("-rt", "--replicationtiming"), type="character", default=NULL, 
+  make_option(c("-r", "--replicationtiming"), type="character", default=NULL, 
               help="input Replication Timing file", metavar="character"),
   make_option(c("-a", "--algorithm"), type="character", default="aspcf", 
               help="select algorithm: aspcf or asmultipcf", metavar="character"),
@@ -185,17 +180,14 @@ if(opt$algorithm != "aspcf" & opt$algorithm != "asmultipcf"){
 ascat.plotSegmentedData(ascat.bc)
 
 # ASCAT main function, calculating the allele-specific copy numbers
-ascat.output = ascat.runAscat(ascat.bc, write_segments = T) 
+ascat.output = ascat.runAscat(ascat.bc) 
 
 print("ASCAT Pipeline Complete") 
 
 print("Saving Files")
+write.table(ascat.output$segments, file=paste(c("ASCAT_Run"),".segments.txt",sep=""), sep="\t", quote=F, row.names=F)
+write.table(ascat.output$aberrantcellfraction, file=paste(c("ASCAT_Run"),".acf.txt",sep=""), sep="\t", quote=F, row.names=F)
+write.table(ascat.output$ploidy, file=paste(c("ASCAT_Run"),".ploidy.txt",sep=""), sep="\t", quote=F, row.names=F)
 QC = ascat.metrics(ascat.bc, ascat.output)
 save(ascat.bc, ascat.output, QC, file = 'ASCAT_objects.Rdata')
 print("Script Run Successfully")
-
-# write.table(ascat.output$segments, file=paste(c("ASCAT_Run"),".segments.txt",sep=""), sep="\t", quote=F, row.names=F)
-# write.table(ascat.output$aberrantcellfraction, file=paste(c("ASCAT_Run"),".acf.txt",sep=""), sep="\t", quote=F, row.names=F)
-# write.table(ascat.output$ploidy, file=paste(c("ASCAT_Run"),".ploidy.txt",sep=""), sep="\t", quote=F, row.names=F)
-# save.image(paste(c("ASCAT_Run"),".RData",sep=""))
-
