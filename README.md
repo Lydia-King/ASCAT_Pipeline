@@ -77,3 +77,9 @@ bash ASCAT_Submission.sh ASCAT_Script.R -f ../data/outfile.txt -g ../ref/GC_Affy
 
 sbatch ASCAT_Submission.sh ASCAT_Script.R -f ../data/outfile.txt -g ../ref/GC_AffySNP6_102015.txt
 ```
+
+-----
+
+### **Additional Resources**
+
+ - Van Loo, P., Nordgard, S. H., Lingjærde, O. C., Russnes, H. G., Rye, I. H., Sun, W., Weigman, V. J., Marynen, P., Zetterberg, A., Naume, B., Perou, C. M., Børresen-Dale, A. L., & Kristensen, V. N. (2010). Allele-specific copy number analysis of tumors. Proceedings of the National Academy of Sciences of the United States of America, 107(39), 16910–16915. https://doi.org/10.1073/pnas.1009843107
