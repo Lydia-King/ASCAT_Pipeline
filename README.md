@@ -25,7 +25,7 @@ The ref directory contains the ref files needed to run the ASCAT pipeline for Af
 ### **Scripts**
 The scripts directory contains the R script (ASCAT_Script.R) and the submission script (ASCAT_Submission.sh) used to run the ASCAT pipeline. The ASCAT pipeline I am running is for microarray data without matched normals, see this [link](https://github.com/VanLoo-lab/ascat/tree/master/ExampleData) for examples of other ASCAT runs.  
 
-The scripts provided allow users to input a number of arguments, these are described below.
+The scripts provided allow users to input a number of arguments. These inputted arguments are stored a file called ASCAT_Run_Arguments.txt for future reference. Arguments are described below.
 
 - Output directory name (optional). Flags are `-o` or `--out`. Default is "ASCAT_Output_Dir".
 - Input data **(needed)**. Flags are `-f` or `--file`.
@@ -37,9 +37,7 @@ The scripts provided allow users to input a number of arguments, these are descr
 
 **Note:** All my samples come from female breast cancer patients ("XX"). As a result I do not need to load up the birdseed.report.txt file obtained from PennCNV-Affy pipeline to extract the computed gender column to create the sex vector. If your samples are from both sexes the R script provided will need to be altered. 
 
-An example of how the script is run interactively is: `bash ASCAT_Submission.sh ASCAT_Script.R `  
-
-A file called ASCAT_Run_Arguments.txt is produced containing a record of inputted arguments. 
+An example of how the script is run interactively is: `bash ASCAT_Submission.sh ASCAT_Script.R -f ../data/outfile.txt -g ../ref/GC_AffySNP6_102015.txt`  
 
 **Note:** Consistent genome build should be used throughout whole PennCNV-Affy and ASCAT pipelines. 
 
